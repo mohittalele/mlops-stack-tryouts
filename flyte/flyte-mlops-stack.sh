@@ -3,16 +3,11 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 
-helm repo add bitnami https://charts.bitnami.com/bitnami
-helm install contour-release bitnami/contour
+wget https://github.com/derailed/k9s/releases/download/v0.26.7/k9s_Linux_x86_64.tar.gz
+tar -xf k9s_Linux_x86_64.tar.gz
 
-helm repo add spark-operator https://googlecloudplatform.github.io/spark-on-k8s-operator
+mv k9s /usr/local/bin
 
-helm install spark-operator-release spark-operator/spark-operator --namespace spark-operator --create-namespace
-
-helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
-helm install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard
-
-
-helm repo add flyte https://flyteorg.github.io/flyte
-helm install -n flyte -f sanbdox-values.yaml --create-namespace flyte flyte/flyte-core
+helm repo add flyteorg https://helm.flyte.org
+helm install -n flyte flyte-deps flyteorg/flyte-deps --create-namespace -f https://raw.githubusercontent.com/flyteorg/flyte/master/charts/flyte-deps/values-sandbox.yaml
+helm install flyte flyteorg/flyte-core -n flyte -f https://raw.githubusercontent.com/flyteorg/flyte/master/charts/flyte-core/values-sandbox.yaml --wait
