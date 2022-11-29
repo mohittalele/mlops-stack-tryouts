@@ -25,3 +25,9 @@ chmod 700 get_helm.sh
 ./get_helm.sh
 rm get_helm.sh
 
+rm LICENSE
+rm README.md
+
+# start minikube 
+
+minikube start
