@@ -50,4 +50,5 @@ sudo docker run hello-world
 
 # start minikube 
 sudo systemctl daemon-reload
-sudo minikube start --driver docker
+sudo systemctl restart docker
+sudo minikube start --force --driver=docker
